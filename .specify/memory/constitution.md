@@ -1,50 +1,32 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Web Calculator Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Simplicity & YAGNI
+Build the simplest thing that satisfies the spec; nothing beyond the spec is added. No dependency enters the project without a written justification in plan.md explaining why the standard library or a few lines of our own code would not do.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Pure Logic Core
+The calculation engine is a pure module: same inputs give the same outputs, with no side effects. It has zero imports from React, the DOM, or browser APIs (no window, no localStorage). Persistence and keyboard handling live in the UI layer only. eval() and expression-parsing packages are banned.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Test-First for the Core
+A failing unit test must exist before any engine code is written. Every edge case named in a spec gets its own test. Tests, lint, and build must all pass before a pull request is opened.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Accessible & Responsive by Default
+Everything works with the keyboard alone. Controls have labels (icon-only controls have aria-label), focus is always visible, text contrast is at least 4.5:1, and the layout is usable at 375px width. All colours, spacing, radii, and font sizes come from design tokens.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Change Tracking
+Every commit that changes behaviour appends a dated line to CHANGELOG.md in the house format: "- YYYY-MM-DD `type` (scope)" followed by an indented description. Types: feat, fix, refactor, docs, config, ui, infra.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Technology Constraints
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+No state-management library, no component library, no CSS framework, no backend, and no database. Every added dependency needs a line in plan.md saying why the standard library or a few lines of our own would not do. Reusable UI primitives (button, panel) are built once and reused; no copy-pasted styles.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+Features follow the SpecKit order: specify, clarify, plan, tasks, analyze, implement. No application code is written before tasks.md exists. Each feature lives on its own branch created by SpecKit, with one commit per workflow step. A feature is merged to main only after tests, lint, and build pass and the app has been used manually; the next feature branches from the updated main.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes other practices. Every plan.md includes a Constitution Check naming which principles apply and how the plan complies. Amendments are made deliberately by re-running the constitution step, with the reason stated in the pull request.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-11-23 | **Last Amended**: 2026-11-23
